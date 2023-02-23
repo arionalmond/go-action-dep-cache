@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/segmentio/ksuid"
 )
 
 func main() {
@@ -14,7 +15,8 @@ func main() {
 		w.Write([]byte("welcome"))
 	})
 	r.Get("/somethingElse", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("welcome"))
+		k := ksuid.New()
+		w.Write(k.Bytes())
 	})
 	http.ListenAndServe(":3000", r)
 }
